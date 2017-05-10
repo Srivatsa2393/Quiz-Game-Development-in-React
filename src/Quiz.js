@@ -8,11 +8,18 @@ class Quiz extends React.Component{
 
     //create an empty object called riddle and make it equal to a method to generate dynamically
     let riddle = this.playGame();
-    //in ES6 this.state= {riddle: riddle} = this.state= {riddle};;
-    this.state= {riddle};
+    //in ES6 this.state= {riddle: riddle} = this.state= {riddle};
+    //create a state for correct
+    let correct = false;
+    //create another state called gameOver
+    let gameOver = false;
+
+    this.state= {riddle, correct, gameOver};
 
     this.renderOptions = this.renderOptions.bind(this);
+    this.checkResults = this.checkResults.bind(this);
   }
+
 
   //randomNumber() method is written to generate the question dynamically
   randomNumber(min,max){
@@ -77,6 +84,18 @@ class Quiz extends React.Component{
     return riddle;
   }
 
+
+  checkResults(option){
+    console.log('Check results called'+ option);
+    if(this.state.riddle.answer === option){
+      console.log('Correct Answer');
+      this.setState({correct: true, gameOver: true});
+    }else{
+      console.log('Wrong Answer try again!')
+      this.setState({correct: false, gameOver: true});
+    }
+  }
+
   //In order to loop the options we are using the map function to this.state.riddle.resultsArray
   //previously passing the child component each time was not feasable
   //<QuizOptions option={this.state.riddle.resultsArray[0]} />
@@ -85,7 +104,7 @@ class Quiz extends React.Component{
   return(
     <div className="options">
       {this.state.riddle.resultsArray.map((option, i) =>
-        <QuizOptions option={option} key={i}/>
+        <QuizOptions option={option} key={i} checkResults={(option) => this.checkResults(option)} />
       )}
     </div>
   );
@@ -101,6 +120,8 @@ class Quiz extends React.Component{
           </p>
           {this.renderOptions()}
         </div>
+        Correct: {this.state.correct? "True": "False"} <br/>
+      GameOver: {this.state.gameOver? "True": "False"}
         <div className="play-again">
           <a className="button">Play Again</a>
         </div>
