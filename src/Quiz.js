@@ -142,7 +142,7 @@ class Quiz extends React.Component{
         </div>
         Correct: {this.state.correct? "True": "False"} <br/>
         GameOver: {this.state.gameOver? "True": "False"}
-        <div className={classNames('after',{'hide': !this.state.gameOver},{"wrong":!this.state.correct},{"correct":this.state.correct})}>
+        <div className={classNames('after',{'hide': !this.state.gameOver},{"wrong animated zoomInDown":!this.state.correct},{"correct animated zoomInDown":this.state.correct})}>
           {this.renderMessage()}
         </div>
         <div className="play-again">

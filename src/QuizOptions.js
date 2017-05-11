@@ -14,7 +14,7 @@ class QuizOptions extends React.Component{
 
   render() {
     return(
-      <div className="fields" onClick={this.callParentCheckOptions}>
+      <div className="fields animated bounceInDown" onClick={this.callParentCheckOptions}>
         <div className="field-block">{this.props.option}</div>
       </div>
     );
